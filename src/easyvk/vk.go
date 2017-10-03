@@ -3,15 +3,15 @@
 package easyvk
 
 import (
-	"net/url"
-	"net/http"
-	"io/ioutil"
-	"fmt"
 	"encoding/json"
-	"golang.org/x/net/html"
-	"net/http/cookiejar"
-	"io"
 	"errors"
+	"fmt"
+	"golang.org/x/net/html"
+	"io"
+	"io/ioutil"
+	"net/http"
+	"net/http/cookiejar"
+	"net/url"
 )
 
 const (
@@ -39,6 +39,7 @@ type VK struct {
 	Status      Status
 	Upload      Upload
 	Wall        Wall
+	Users       Users
 }
 
 // WithToken helps to initialize your
@@ -47,14 +48,15 @@ func WithToken(token string) VK {
 	vk := VK{}
 	vk.AccessToken = token
 	vk.Version = version
-	vk.Account = Account{&vk }
-	vk.Board = Board{&vk }
-	vk.Fave = Fave{&vk }
-	vk.Likes = Likes{&vk }
-	vk.Photos = Photos{&vk }
-	vk.Status = Status{&vk }
+	vk.Account = Account{&vk}
+	vk.Board = Board{&vk}
+	vk.Fave = Fave{&vk}
+	vk.Likes = Likes{&vk}
+	vk.Photos = Photos{&vk}
+	vk.Status = Status{&vk}
 	vk.Upload = Upload{}
-	vk.Wall = Wall{&vk }
+	vk.Wall = Wall{&vk}
+	vk.Users = Users{&vk}
 	return vk
 }
 
