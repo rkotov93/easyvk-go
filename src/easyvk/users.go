@@ -21,11 +21,21 @@ type UserInfoResponse struct {
 // AddTopic creates a new topic on a community's discussion board.
 // https://vk.com/dev/board.addTopic
 func (b *Users) Get(ids []int, fields []string, nameCase string) ([]UserInfoResponse, error) {
-	params := map[string]string{
-		"user_ids":  strings.Trim(strings.Join(strings.Fields(fmt.Sprint(ids)), ","), "[]"),
-		"fields":    strings.Join(fields, ","),
-		"name_case": nameCase,
+
+	params := map[string]string{}
+
+	if ids != nil && len(ids) > 0 {
+		params["user_ids"] = strings.Trim(strings.Join(strings.Fields(fmt.Sprint(ids)), ","), "[]")
 	}
+
+	if fields != nil && len(fields) > 0 {
+		params["fields"] = strings.Join(fields, ",")
+	}
+
+	if len(nameCase) > 0 {
+		params["name_case"] = nameCase
+	}
+
 	resp, err := b.vk.Request("users.get", params)
 	if err != nil {
 		return nil, err
