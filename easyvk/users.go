@@ -21,7 +21,7 @@ type User struct {
 }
 
 // Get loads the information of users with provided ids
-func (b *Users) Get(ids []string, fields []string, nameCase string) ([]User, error) {
+func (u *Users) Get(ids []string, fields []string, nameCase string) ([]User, error) {
 
 	params := map[string]string{}
 
@@ -37,7 +37,7 @@ func (b *Users) Get(ids []string, fields []string, nameCase string) ([]User, err
 		params["name_case"] = nameCase
 	}
 
-	resp, err := b.vk.Request("users.get", params)
+	resp, err := u.vk.Request("users.get", params)
 	if err != nil {
 		return nil, err
 	}
