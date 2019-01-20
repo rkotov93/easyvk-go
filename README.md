@@ -4,11 +4,11 @@ Package EasyVK provides you simple way to work with VK API.
 ### Installation:
 #### Install:
 ```
-$ go get -u github.com/alexxstst/easyvk-go/easyvk
+$ go get -u github.com/rkotov93/easyvk-go/easyvk
 ```
 #### Import:
 ```go
-import "github.com/alexxstst/easyvk-go/easyvk"
+import "github.com/rkotov93/easyvk-go/easyvk"
 ```
 
 ### How to work:
