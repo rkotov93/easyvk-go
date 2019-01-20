@@ -6,21 +6,22 @@ import (
 	"strings"
 )
 
-// A Board describes a set of methods to work with topics.
-// https://vk.com/dev/board
+// Users struct that provides an acess to users api mthods
 type Users struct {
 	vk *VK
 }
 
-type UserInfoResponse struct {
-	Id        int64  `json:"id"`
+// User struct stores information of user
+type User struct {
+	ID        string `json:"id"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
+	Nickname  string `json:"nickname"`
+	Sex       int    `json:"sex"`
 }
 
-// AddTopic creates a new topic on a community's discussion board.
-// https://vk.com/dev/board.addTopic
-func (b *Users) Get(ids []int, fields []string, nameCase string) ([]UserInfoResponse, error) {
+// Get loads the information of users with provided ids
+func (b *Users) Get(ids []string, fields []string, nameCase string) ([]User, error) {
 
 	params := map[string]string{}
 
@@ -41,7 +42,7 @@ func (b *Users) Get(ids []int, fields []string, nameCase string) ([]UserInfoResp
 		return nil, err
 	}
 
-	var info []UserInfoResponse
+	var info []User
 	err = json.Unmarshal(resp, &info)
 	if err != nil {
 		return nil, err
