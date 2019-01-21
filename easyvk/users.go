@@ -13,7 +13,7 @@ type Users struct {
 
 // User struct stores information of user
 type User struct {
-	ID        string `json:"id"`
+	ID        uint64 `json:"id"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Nickname  string `json:"nickname"`
