@@ -11,13 +11,36 @@ type Users struct {
 	vk *VK
 }
 
+type City struct {
+	ID    int    `json:"id"`
+	Title string `json:"title"`
+}
+
+type Country struct {
+	ID    int    `json:"id"`
+	Title string `json:"title"`
+}
+
 // User struct stores information of user
 type User struct {
-	ID        uint64 `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Nickname  string `json:"nickname"`
-	Sex       int    `json:"sex"`
+	ID        uint64  `json:"id"`
+	FirstName string  `json:"first_name"`
+	LastName  string  `json:"last_name"`
+	Sex       uint8   `json:"sex"`
+	Nickname  string  `json:"nickname"`
+	Domain    string  `json:"domain"`
+	City      City    `json:"city"`
+	Country   Country `json:"country"`
+	Hometown  string  `json:"home_town"`
+	Status    string  `json:"status"`
+	Bdate     string  `json:"bdate"`
+	Interests string  `json:"interests"`
+	Relation  uint8   `json:"relation"`
+}
+
+type UsersSearchResults struct {
+	Count int    `json:"count"`
+	Items []User `json:"items"`
 }
 
 // Get loads the information of users with provided ids
@@ -42,10 +65,29 @@ func (u *Users) Get(ids []string, fields []string, nameCase string) ([]User, err
 		return nil, err
 	}
 
-	var info []User
-	err = json.Unmarshal(resp, &info)
+	var users []User
+	err = json.Unmarshal(resp, &users)
 	if err != nil {
 		return nil, err
 	}
-	return info, nil
+
+	return users, nil
+}
+
+// Search returns search results
+func (u *Users) Search(q string, params map[string]string) (*UsersSearchResults, error) {
+	params["q"] = q
+
+	resp, err := u.vk.Request("users.search", params)
+	if err != nil {
+		return nil, err
+	}
+
+	var searchResults UsersSearchResults
+	err = json.Unmarshal(resp, &searchResults)
+	if err != nil {
+		return nil, err
+	}
+
+	return &searchResults, nil
 }

@@ -6,16 +6,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"golang.org/x/net/html"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
+
+	"golang.org/x/net/html"
 )
 
 const (
-	version = "5.63"
+	version = "5.92"
 	apiURL  = "https://api.vk.com/method/"
 	authURL = "https://oauth.vk.com/authorize?" +
 		"client_id=%s" +
